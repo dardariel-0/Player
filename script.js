@@ -1,5 +1,5 @@
 const clientId = "b3291a18cc094504a0d0094f73e1215c";
-const redirectUri = "https://player-daniel.netlify.app/callback"; // MESMO que configurei no spot
+const redirectUri = "https://player-daniel.netlify.app"; // MESMO que configurei no spot
 const scopes = [
   "user-read-playback-state",
   "user-modify-playback-state",
