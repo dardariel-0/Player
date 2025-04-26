@@ -1,5 +1,7 @@
 const clientId = "b3291a18cc094504a0d0094f73e1215c";
 const redirectUri = "https://player-daniel.netlify.app";
+const playlistId = "3bM016MXIWljN8rQVtztBL";
+
 const scopes = [
   "user-read-playback-state",
   "user-modify-playback-state",
@@ -108,6 +110,7 @@ function setupSpotifyPlayer(access_token) {
     document.getElementById("pause-btn").onclick = () => player.pause();
     document.getElementById("next-btn").onclick = () => player.nextTrack();
     document.getElementById("prev-btn").onclick = () => player.previousTrack();
+    document.getElementById("play-playlist-btn").onclick = () => playPlaylist();
 
     window.player = player;
   };
@@ -134,6 +137,18 @@ function updateTrackInfo(track) {
   document.getElementById("artist-name").textContent = track.artists
     .map((a) => a.name)
     .join(", ");
+}
+
+async function playPlaylist() {
+  const url = `https://api.spotify.com/v1/me/player/play?device_id=${window.device_id}`;
+  await fetch(url, {
+    method: "PUT",
+    body: JSON.stringify({ context_uri: `spotify:playlist:${playlistId}` }),
+    headers: {
+      Authorization: `Bearer ${window.access_token}`,
+      "Content-Type": "application/json",
+    },
+  });
 }
 
 handleRedirect();
