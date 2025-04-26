@@ -1,5 +1,5 @@
-const clientId = "meu-id";
-const redirectUri = "https://localhost.com/callback"; // MESMO que configurei no spot
+const clientId = "b3291a18cc094504a0d0094f73e1215c";
+const redirectUri = "https://player-daniel.netlify.app/callback"; // MESMO que configurei no spot
 const scopes = [
   "user-read-playback-state",
   "user-modify-playback-state",
@@ -68,7 +68,7 @@ async function fetchAccessToken(code) {
 }
 
 async function fetchPlaylist(access_token) {
-  const playlistId = "id-playlist"; //
+  const playlistId = "3bM016MXIWljN8rQVtztBL"; //
   const response = await fetch(
     `https://api.spotify.com/v1/playlists/${playlistId}/tracks`,
     {
