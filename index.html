@@ -2,13 +2,54 @@
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
-    <title>Player Spotify Frontend</title>
+    <title>Meu Spotify Player</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        background: #121212;
+        color: white;
+      }
+      img {
+        width: 200px;
+        height: 200px;
+        border-radius: 10px;
+        margin: 20px 0;
+      }
+      button {
+        margin: 5px;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 20px;
+        background: #1db954;
+        color: white;
+        cursor: pointer;
+      }
+      button:hover {
+        background: #1ed760;
+      }
+      #player-controls {
+        margin-top: 20px;
+      }
+    </style>
   </head>
   <body>
-    <h1>Player Spotify</h1>
+    <h1>Meu Spotify Player</h1>
     <button id="login-btn">Login com Spotify</button>
-    <ul id="playlist"></ul>
 
+    <div id="player" style="display: none">
+      <img id="album-cover" src="" alt="Capa do álbum" />
+      <h2 id="track-name"></h2>
+      <h3 id="artist-name"></h3>
+      <div id="player-controls">
+        <button id="prev-btn">Anterior</button>
+        <button id="play-btn">Tocar</button>
+        <button id="pause-btn">Pausar</button>
+        <button id="next-btn">Próxima</button>
+      </div>
+    </div>
+
+    <script src="https://sdk.scdn.co/spotify-player.js"></script>
     <script src="/script.js"></script>
   </body>
 </html>
