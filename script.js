@@ -36,54 +36,60 @@ let playerGlobal;
 let trackDuration = 0;
 
 function setupSpotifyPlayer(access_token) {
-  window.onSpotifyWebPlaybackSDKReady = () => {
-    const player = new Spotify.Player({
-      name: "Meu Web Player Avançado",
-      getOAuthToken: (cb) => {
-        cb(access_token);
-      },
-      volume: 0.7,
-    });
+  if (window.Spotify) {
+    initializePlayer(access_token);
+  } else {
+    window.onSpotifyWebPlaybackSDKReady = () => initializePlayer(access_token);
+  }
+}
 
-    player.connect();
+function initializePlayer(access_token) {
+  const player = new Spotify.Player({
+    name: "Meu Web Player Avançado",
+    getOAuthToken: (cb) => {
+      cb(access_token);
+    },
+    volume: 0.7,
+  });
 
-    player.addListener("ready", ({ device_id }) => {
-      console.log("Player pronto! Device ID", device_id);
-      window.device_id = device_id;
-      document.getElementById("login-btn").style.display = "none";
-      document.getElementById("player").style.display = "block";
-      fetchCurrentlyPlaying(access_token);
-    });
+  player.connect();
 
-    player.addListener("player_state_changed", (state) => {
-      if (!state) return;
-      const current_track = state.track_window.current_track;
-      updateTrackInfo(current_track);
-      updateProgress(state);
-    });
+  player.addListener("ready", ({ device_id }) => {
+    console.log("Player pronto! Device ID", device_id);
+    window.device_id = device_id;
+    document.getElementById("login-btn").style.display = "none";
+    document.getElementById("player").style.display = "block";
+    fetchCurrentlyPlaying(access_token);
+  });
 
-    document.getElementById("play-btn").onclick = () => player.resume();
-    document.getElementById("pause-btn").onclick = () => player.pause();
-    document.getElementById("next-btn").onclick = () => player.nextTrack();
-    document.getElementById("prev-btn").onclick = () => player.previousTrack();
-    document.getElementById("play-playlist-btn").onclick = () =>
-      playPlaylist(access_token);
-    document.getElementById("volume").oninput = (e) =>
-      player.setVolume(e.target.value);
+  player.addListener("player_state_changed", (state) => {
+    if (!state) return;
+    const current_track = state.track_window.current_track;
+    updateTrackInfo(current_track);
+    updateProgress(state);
+  });
 
-    playerGlobal = player;
+  document.getElementById("play-btn").onclick = () => player.resume();
+  document.getElementById("pause-btn").onclick = () => player.pause();
+  document.getElementById("next-btn").onclick = () => player.nextTrack();
+  document.getElementById("prev-btn").onclick = () => player.previousTrack();
+  document.getElementById("play-playlist-btn").onclick = () =>
+    playPlaylist(access_token);
+  document.getElementById("volume").oninput = (e) =>
+    player.setVolume(e.target.value);
 
-    // Atualizar progresso a cada 1s
-    setInterval(() => {
-      if (playerGlobal) {
-        playerGlobal.getCurrentState().then((state) => {
-          if (state) {
-            updateProgress(state);
-          }
-        });
-      }
-    }, 1000);
-  };
+  playerGlobal = player;
+
+  // Atualizar progresso a cada 1s
+  setInterval(() => {
+    if (playerGlobal) {
+      playerGlobal.getCurrentState().then((state) => {
+        if (state) {
+          updateProgress(state);
+        }
+      });
+    }
+  }, 1000);
 }
 
 function updateTrackInfo(track) {
