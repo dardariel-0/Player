@@ -6,86 +6,47 @@
     <style>
       body {
         font-family: Arial, sans-serif;
-        text-align: center;
         background: #121212;
         color: white;
+        text-align: center;
       }
       img {
         width: 200px;
-        height: 200px;
         border-radius: 10px;
-        margin: 20px 0;
+        margin-top: 20px;
       }
-      button,
-      input[type="range"] {
-        margin: 5px;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 20px;
+      button {
         background: #1db954;
         color: white;
+        padding: 10px 20px;
+        border-radius: 20px;
+        border: none;
+        margin: 10px;
         cursor: pointer;
-      }
-      button:hover {
-        background: #1ed760;
-      }
-      #player-controls {
-        margin-top: 20px;
-      }
-      #progress-container {
-        margin-top: 20px;
-        width: 80%;
-        margin-left: auto;
-        margin-right: auto;
-      }
-      #progress {
-        width: 100%;
-      }
-      #volume-container {
-        margin-top: 20px;
       }
       input[type="range"] {
         width: 80%;
+        margin-top: 10px;
       }
     </style>
   </head>
   <body>
-    <h1>Meu Spotify Player Avançado</h1>
+    <h1>Meu Spotify Player (PKCE + Playlist)</h1>
     <button id="login-btn">Login com Spotify</button>
 
     <div id="player" style="display: none">
-      <img id="album-cover" src="" alt="Capa do álbum" />
+      <img id="album-cover" src="" alt="Album Cover" />
       <h2 id="track-name"></h2>
       <h3 id="artist-name"></h3>
 
-      <div id="progress-container">
-        <span id="current-time">0:00</span>
-        <input type="range" id="progress" value="0" max="100" />
-        <span id="duration">0:00</span>
-      </div>
-
-      <div id="player-controls">
+      <div>
         <button id="prev-btn">Anterior</button>
-        <button id="play-btn">Tocar</button>
-        <button id="pause-btn">Pausar</button>
+        <button id="play-btn">Play</button>
+        <button id="pause-btn">Pause</button>
         <button id="next-btn">Próxima</button>
       </div>
 
-      <div id="volume-container">
-        <label for="volume">Volume</label><br />
-        <input
-          type="range"
-          id="volume"
-          min="0"
-          max="1"
-          step="0.01"
-          value="0.7"
-        />
-      </div>
-
-      <button id="play-playlist-btn" style="margin-top: 20px">
-        Tocar minha Playlist
-      </button>
+      <input type="range" id="volume" min="0" max="1" step="0.01" value="0.7" />
     </div>
 
     <script src="https://sdk.scdn.co/spotify-player.js"></script>
